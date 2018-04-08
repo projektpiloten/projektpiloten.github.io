@@ -4,11 +4,15 @@
 body {
     margin: 0px; 
     padding: 0px; 
-    background-color: #fff
+    background-color: #fff;
+    font-family: sans-serif;
 }
-img.page {
+.pagediv {
+    margin: 0px;
+    padding: 0px;
+}
+.page {
     width: 100%;
-    display: block;
 }
 .content {
     margin-left: 5%;
@@ -16,23 +20,108 @@ img.page {
     background-color: #fff;
 }
 </style>
-<title>Aktion Freudige Erregung Voller Hoffnung</title>
+<title>Aktion Freudige Erregung Voller Hoffnung, Kapitel 19, Iteration IV</title>
+<script>
+    var cumulativeOffset = function(element) {
+        var top = 0, left = 0;
+        do {
+            top += element.offsetTop  || 0;
+            left += element.offsetLeft || 0;
+            element = element.offsetParent;
+        } while(element);
+
+        return {
+            top: top,
+            left: left
+        };
+    };
+    
+    function scrollstuff2() {
+        var lines= [ "",
+            "SEELAX misst von Kopf bis Schwanz etwa 12 Meter und wird im Abstand von ca. 15 Metern zum Ufer im See verankert.",
+            "Der &uuml;berdachte Fahrradgenerator steht am Ufer auf einer Holzplatte von ca. 2,5 Metern L&auml;nge.",
+            "Der Fahrradgenerator kann von Besuchern jeden Alters benutzt werden, um durch Muskelkraft bis zu 150W Strom zu erzeugen.",
+            "Nur bei Betrieb des Generators werden die Elektronik sowie die 700 einzeln ansteuerbaren RGB-LEDs mit Energie versorgt und in Gang gesetzt.",
+            "Die Lichtfarbe und -Rhythmik der Schlange wird von verschiedenen am Fahrrad angebrachten Sensoren bestimmt.",
+            "Von Zeit zu Zeit st&ouml;&szlig;t die Schlange mittels einer Pumpe Seewasser aus ihren leuchtenden N&uuml;stern.",
+            "" ];
+        var rc= document.getElementById("body").getBoundingClientRect();
+        var docHeight= rc.bottom - rc.top;
+        var textIdx= (document.body.scrollTop * lines.length / docHeight);
+        document.getElementById("statusline").innerHTML= lines[Math.round(textIdx)];
+    }
+    
+    function loadprep() {
+        pages= document.getElementsByClassName("page");
+        for(var i= 0; i<pages.length; i++) 
+            pages[i].style.visibility= "hidden";
+        document.getElementById("pageoverlay-div").style.visibility= "visible";
+    }
+
+    function scrollstuff() {
+        pages= document.getElementsByClassName("page");
+        var i;
+        for(i= 0; i<pages.length; i++) {
+            var abspos= cumulativeOffset(pages[i]);
+            var rc= pages[i].getBoundingClientRect();
+            scrollDestination= abspos.top;
+            if(document.body.scrollTop <= abspos.top + (rc.bottom - rc.top)/2)
+                break;
+        }
+        document.getElementById("pageoverlay").src= pages[i].src;
+        /*
+        //~ window.scroll(0, 100);
+        //~ console.log(document.body.scrollTop);
+        var pages= document.getElementsByClassName("page");
+        var rc= pages[0].getBoundingClientRect();
+        var yd= 10; //(rc.bottom - rc.top)/2;
+        
+        if(document.body.scrollTop - lastScrollPos > yd) {
+            ++lastScrolledPage;
+            lastScrollPos= cumulativeOffset(pages[lastScrolledPage]).top;
+            window.scroll(0, lastScrollPos);
+        } else if(document.body.scrollTop - lastScrollPos < -yd) {
+            --lastScrolledPage;
+            lastScrollPos= cumulativeOffset(pages[lastScrolledPage]).top;
+            window.scroll(0, lastScrollPos);
+        }
+        */
+        
+        /*
+        pages= document.getElementsByClassName("page");
+        var scrollDestination= 0;
+        for(var i= 0; i<pages.length; i++) {
+            var abspos= cumulativeOffset(pages[i]);
+            var rc= pages[i].getBoundingClientRect();
+            scrollDestination= abspos.top;
+            if(document.body.scrollTop <= abspos.top + (rc.bottom - rc.top)/2)
+                break;
+        }
+        if(Math.abs(document.body.scrollTop - scrollDestination) > 10)
+            window.scroll(0, scrollDestination);
+        */
+    };
+</script>
 </head>
-<body>
+<body id="body" onscroll="scrollstuff2()">  <!-- onscroll="scrollstuff()" onload="loadprep()"> -->
 <div class="content">
-    <img class="page" src="page01.svg" />
-    <img class="page" src="page02.svg" />
-    <img class="page" src="page03.svg" />
-    <img class="page" src="page04.svg" />
-    <img class="page" src="page05.svg" />
-    <img class="page" src="page06.svg" />
-    <img class="page" src="page07.svg" />
-    <img class="page" src="page08.svg" />
-    <img class="page" src="page09.svg" />
-    <img class="page" src="page10.svg" />
-    <img class="page" src="page11.svg" />
-    <img class="page" src="page12.svg" />
-    <img class="page" src="page13.svg" />
+    <div class="pagediv"><img class="page" id="page01" src="page01.svg"></div>
+    <div class="pagediv"><img class="page" id="page02" src="page02.svg"></div>
+    <div class="pagediv"><img class="page" id="page03" src="page03.svg"></div>
+    <div class="pagediv"><img class="page" id="page04" src="page04.svg"></div>
+    <div class="pagediv"><img class="page" id="page05" src="page05.svg"></div>
+    <div class="pagediv"><img class="page" id="page06" src="page06.svg"></div>
+    <div class="pagediv"><img class="page" id="page07" src="page07.svg"></div>
+    <div class="pagediv"><img class="page" id="page08" src="page08.svg"></div>
+    <div class="pagediv"><img class="page" id="page09" src="page09.svg"></div>
+    <div class="pagediv"><img class="page" id="page10" src="page10.svg"></div>
+    <div class="pagediv"><img class="page" id="page11" src="page11.svg"></div>
+    <div class="pagediv"><img class="page" id="page12" src="page12.svg"></div>
+    <div class="pagediv"><img class="page" id="page13" src="page13.svg"></div>
 </div>
+<div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
+    <img id="pageoverlay" src="page02.svg" style="width:90%; margin-left:5%; margin-right:5%;">
+</div>
+<div id="statusline" style="position:fixed; bottom:0px; left:0px; width:100%; height: 1em; background-color: #888; color: #fff; padding: 1em; text-align: center;">&nbsp;</div>
 </body>
 </html>
