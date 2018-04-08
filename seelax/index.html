@@ -1,4 +1,5 @@
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <head>
 <style type="text/css">
 body {
@@ -19,6 +20,20 @@ body {
     margin-right: 5%;
     background-color: #fff;
 }
+.statusline {
+    position: fixed; 
+    bottom: 0px; 
+    left: 0px; 
+    width: 100%; 
+    min-height: 1em; 
+    background-color: #fff; 
+    color: #000; 
+    text-align: center;
+    font-size: 14pt;
+}
+.statusline-text {
+    padding: 2em; 
+}
 </style>
 <title>Aktion Freudige Erregung Voller Hoffnung, Kapitel 19, Iteration IV</title>
 <script>
@@ -36,19 +51,20 @@ body {
         };
     };
     
+    var statuslines= [ "",
+        "SEELAX misst von Kopf bis Schwanz etwa 12 Meter und wird im Abstand von ca. 15 Metern zum Ufer im See verankert.",
+        "Der &uuml;berdachte Fahrradgenerator steht am Ufer auf einer Holzplatte von ca. 2,5 Metern L&auml;nge.",
+        "Der Interaktive Elektrische Tribulator kann von Besuchern jeden Alters benutzt werden, um durch Muskelkraft bis zu 150W Strom zu erzeugen.",
+        "Nur bei Betrieb des Generators werden die Elektronik sowie die 700 einzeln ansteuerbaren RGB-LEDs mit Energie versorgt und in Gang gesetzt.",
+        "Die Lichtfarbe und -Rhythmik der Schlange wird von verschiedenen am Fahrrad angebrachten Sensoren bestimmt.",
+        "Von Zeit zu Zeit st&ouml;&szlig;t die Schlange mittels einer Pumpe Seewasser aus ihren leuchtenden N&uuml;stern.",
+        "" ];
+        
     function scrollstuff2() {
-        var lines= [ "",
-            "SEELAX misst von Kopf bis Schwanz etwa 12 Meter und wird im Abstand von ca. 15 Metern zum Ufer im See verankert.",
-            "Der &uuml;berdachte Fahrradgenerator steht am Ufer auf einer Holzplatte von ca. 2,5 Metern L&auml;nge.",
-            "Der Fahrradgenerator kann von Besuchern jeden Alters benutzt werden, um durch Muskelkraft bis zu 150W Strom zu erzeugen.",
-            "Nur bei Betrieb des Generators werden die Elektronik sowie die 700 einzeln ansteuerbaren RGB-LEDs mit Energie versorgt und in Gang gesetzt.",
-            "Die Lichtfarbe und -Rhythmik der Schlange wird von verschiedenen am Fahrrad angebrachten Sensoren bestimmt.",
-            "Von Zeit zu Zeit st&ouml;&szlig;t die Schlange mittels einer Pumpe Seewasser aus ihren leuchtenden N&uuml;stern.",
-            "" ];
         var rc= document.getElementById("body").getBoundingClientRect();
         var docHeight= rc.bottom - rc.top;
-        var textIdx= (document.body.scrollTop * lines.length / docHeight);
-        document.getElementById("statusline").innerHTML= lines[Math.round(textIdx)];
+        var textIdx= (document.body.scrollTop * statuslines.length / docHeight);
+        document.getElementById("statusline").innerHTML= statuslines[parseInt(textIdx)];
     }
     
     function loadprep() {
@@ -118,10 +134,11 @@ body {
     <div class="pagediv"><img class="page" id="page11" src="page11.svg"></div>
     <div class="pagediv"><img class="page" id="page12" src="page12.svg"></div>
     <div class="pagediv"><img class="page" id="page13" src="page13.svg"></div>
+    <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
 </div>
 <div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
     <img id="pageoverlay" src="page02.svg" style="width:90%; margin-left:5%; margin-right:5%;">
 </div>
-<div id="statusline" style="position:fixed; bottom:0px; left:0px; width:100%; height: 1em; background-color: #888; color: #fff; padding: 1em; text-align: center;">&nbsp;</div>
+<div class="statusline"><div class="statusline-text" id="statusline">&nbsp;</div></div>
 </body>
 </html>
