@@ -112,7 +112,7 @@ a {
     
     function prepSVGImage(svg /*parent <svg>*/, elem /*<use> element*/) {
         elem.onclick= function() { 
-            console.log("onclick", elem.parentNode);
+            //~ console.log("onclick", elem.parentNode);
             
             //~ elem.parentNode.style.width= "100%";
             //elem.parentNode.transform= svg.createSVGMatrix();
@@ -149,12 +149,11 @@ a {
     }
 </script>
 </head>
-<body id="body" onscroll="scrollstuff2()" onload="loadprep2()">  <!-- onscroll="scrollstuff()" onload="loadprep()"> -->
+<body id="body" onscroll="scrollstuff2()" onload="loadprep2()">
 <div class="content">
 <noscript>
 <div style="background-color: #fbb; padding: 2em; margin: 2em; text-align: center"><h1>Bitte JavaScript aktivieren.</h2></div>
 </noscript>
-    <!-- <div class="pagediv"><img class="page" id="page01" src="page01.svg"></div> -->
     <div class="pagediv"><object id="page01" type="image/svg+xml" data="page01.svg" class="page"><param name="src" value="page01.svg"></object></div>
     <div class="pagediv"><object id="page02" type="image/svg+xml" data="page02.svg" class="page"><param name="src" value="page02.svg"></object></div>
     <div class="pagediv"><object id="page03" type="image/svg+xml" data="page03.svg" class="page"><param name="src" value="page03.svg"></object></div>
