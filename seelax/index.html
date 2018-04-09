@@ -25,16 +25,31 @@ body {
     bottom: 0px; 
     left: 0px; 
     width: 100%; 
-    min-height: 1em; 
     background-color: #fff; 
     color: #000; 
     text-align: center;
-    font-size: 14pt;
+    font-size: 16pt;
+    visibility: hidden;
 }
 .statusline-text {
-    padding: 2em; 
+    padding: 1em; 
+    min-height: 1.2em;
+}
+.posbar {
+    width: 100%;
+    height: 0.5em;
+    background-color: #bbb;
+    padding: 0px;
+    margin: 0px;
 }
 </style>
+<noscript>
+<style type="text/css">
+.statusline {
+    visibility: visible;
+}
+</style>
+</noscript>
 <title>Aktion Freudige Erregung Voller Hoffnung, Kapitel 19, Iteration IV</title>
 <script>
     var cumulativeOffset = function(element) {
@@ -51,24 +66,36 @@ body {
         };
     };
     
-    var statuslines= [ "",
-        "SEELAX misst von Kopf bis Schwanz etwa 12 Meter und wird im Abstand von ca. 15 Metern zum Ufer im See verankert.",
-        "Der &uuml;berdachte Fahrradgenerator steht am Ufer auf einer Holzplatte von ca. 2,5 Metern L&auml;nge.",
-        "Der Interaktive Elektrische Tribulator kann von Besuchern jeden Alters benutzt werden, um durch Muskelkraft bis zu 150W Strom zu erzeugen.",
-        "Nur bei Betrieb des Generators werden die Elektronik sowie die 700 einzeln ansteuerbaren RGB-LEDs mit Energie versorgt und in Gang gesetzt.",
-        "Die Lichtfarbe und -Rhythmik der Schlange wird von verschiedenen am Fahrrad angebrachten Sensoren bestimmt.",
-        "Von Zeit zu Zeit st&ouml;&szlig;t die Schlange mittels einer Pumpe Seewasser aus ihren leuchtenden N&uuml;stern.",
-        "" ];
+    var statuslines= [];
+    var oldTextIdx= -1;
+    var oldPageIdx= -1;
         
     function scrollstuff2() {
+        if(!statuslines.length) 
+            return;
         var rc= document.getElementById("body").getBoundingClientRect();
         var docHeight= rc.bottom - rc.top;
+        var pages= document.getElementsByClassName("page");
         var textIdx= (document.body.scrollTop * statuslines.length / docHeight);
-        document.getElementById("statusline").innerHTML= statuslines[parseInt(textIdx)];
+        var pageIdx= (document.body.scrollTop * pages.length / docHeight);
+        if(textIdx != oldTextIdx || pageIdx != oldPageIdx) {
+            document.getElementById("statusline").innerHTML= statuslines[parseInt(textIdx)];
+            document.getElementById("posbar2").style.left= parseInt(textIdx) * 100 / statuslines.length + "%";
+            document.getElementById("posbar1").style.left= parseInt(pageIdx) * 100 / pages.length + "%";
+        }
     }
     
+    function loadprep2() {
+        statuslines= document.getElementById("statusline").innerHTML.replace(/\n\n/g, "...").split("\n");
+        var pages= document.getElementsByClassName("page");
+        document.getElementById("posbar1").style.width= "" + Math.round(100/pages.length) + "%";
+        scrollstuff2();
+        document.getElementById("posbar2").style.width= "" + Math.round(100/statuslines.length) + "%";
+        document.getElementById("statusline-container").style.visibility= "visible";
+    }
+
     function loadprep() {
-        pages= document.getElementsByClassName("page");
+        var pages= document.getElementsByClassName("page");
         for(var i= 0; i<pages.length; i++) 
             pages[i].style.visibility= "hidden";
         document.getElementById("pageoverlay-div").style.visibility= "visible";
@@ -119,7 +146,7 @@ body {
     };
 </script>
 </head>
-<body id="body" onscroll="scrollstuff2()">  <!-- onscroll="scrollstuff()" onload="loadprep()"> -->
+<body id="body" onscroll="scrollstuff2()" onload="loadprep2()">  <!-- onscroll="scrollstuff()" onload="loadprep()"> -->
 <div class="content">
     <div class="pagediv"><img class="page" id="page01" src="page01.svg"></div>
     <div class="pagediv"><img class="page" id="page02" src="page02.svg"></div>
@@ -139,6 +166,24 @@ body {
 <div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
     <img id="pageoverlay" src="page02.svg" style="width:90%; margin-left:5%; margin-right:5%;">
 </div>
-<div class="statusline"><div class="statusline-text" id="statusline">&nbsp;</div></div>
+<div class="statusline" id="statusline-container">
+    <div class="posbar">
+        <span id="posbar1" style="position:absolute; left:0px; width:0px; height:0.5em; background-color:#eee; display:inline-block;"></span><br>
+    </div>
+    <div class="statusline-text" id="statusline">
+        SEELAX misst von Kopf bis Schwanz etwa 12 Meter&#xa;&#xa;
+        &#xa;&#xa;und wird im Abstand von ca. 15 Metern zum Ufer im Seeboden verankert.
+        Der &uuml;berdachte Fahrradgenerator steht am Ufer auf einer Holzplatte von ca. 2,5 Metern L&auml;nge.
+        Der Interaktive Elektrische Tribulator kann von Besuchern jeden Alters benutzt werden&#xa;&#xa;
+        &#xa;&#xa;um durch Muskelkraft bis zu 150W Strom zu erzeugen.
+        Nur bei Betrieb des Generators werden die Elektronik sowie die 700 einzeln ansteuerbaren RGB-LEDs&#xa;&#xa;
+        &#xa;&#xa;mit Energie versorgt und in Gang gesetzt.
+        Die Lichtfarbe und -Rhythmik der Schlange wird von verschiedenen am Fahrrad angebrachten Sensoren bestimmt.
+        Von Zeit zu Zeit st&ouml;&szlig;t die Schlange mittels einer Pumpe Seewasser aus ihren leuchtenden N&uuml;stern.
+    </div>
+    <div class="posbar">
+        <span id="posbar2" style="position:absolute; left:0px; width:0px; height:0.5em; background-color:#eee; display:inline-block;"></span>
+    </div>
+</div>
 </body>
 </html>
