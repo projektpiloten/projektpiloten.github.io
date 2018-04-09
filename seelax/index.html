@@ -95,6 +95,11 @@ body {
         var pages= document.getElementsByClassName("page");
         var textIdx= (document.body.scrollTop * statuslines.length / docHeight);
         var pageIdx= (document.body.scrollTop * pages.length / docHeight);
+        if(parseInt(textIdx)==0 || parseInt(textIdx)==statuslines.length-1) {
+            document.getElementById("statusline-container").style.display= "none";
+            return;
+        }
+        document.getElementById("statusline-container").style.display= "inline-block";
         document.getElementById("statusline").innerHTML= statuslines[parseInt(textIdx)];
         document.getElementById("posbar2").style.left= parseInt(textIdx) * 100 / statuslines.length + "%";
         document.getElementById("posbar1").style.left= parseInt(pageIdx) * 100 / pages.length + "%";
@@ -181,7 +186,9 @@ body {
     <div class="pagediv"><img class="page" id="page11" src="page11.svg"></div>
     <div class="pagediv"><img class="page" id="page12" src="page12.svg"></div>
     <div class="pagediv"><img class="page" id="page13" src="page13.svg"></div>
+    <noscript>
     <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
+    </noscript>
 </div>
 <div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
     <img id="pageoverlay" src="page02.svg" style="width:90%; margin-left:5%; margin-right:5%;">
