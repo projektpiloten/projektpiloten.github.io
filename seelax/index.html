@@ -72,7 +72,7 @@ a {
 }
 </style>
 </noscript>
-<title>Aktion Freudige Erregung Voller Hoffnung, Kapitel 19, Iteration IV</title>
+<title>SEELAX</title>
 <script>
     var cumulativeOffset = function(element) {
         var top = 0, left = 0;
@@ -110,6 +110,16 @@ a {
         document.getElementById("posbar2a").style.left= (Math.sin((textIdx-parseInt(textIdx))*Math.PI/2)) * 100 + "%";
     }
     
+    function prepSVGImage(svg /*parent <svg>*/, elem /*<use> element*/) {
+        elem.onclick= function() { 
+            console.log("onclick", elem.parentNode);
+            
+            //~ elem.parentNode.style.width= "100%";
+            //elem.parentNode.transform= svg.createSVGMatrix();
+            //console.log(elem.parentNode.transform);
+        }
+    }
+    
     function loadprep2() {
         statuslines= document.getElementById("statusline").innerHTML.replace(/\n\n/g, "...").split("\n");
         var pages= document.getElementsByClassName("page");
@@ -117,58 +127,26 @@ a {
         scrollstuff2();
         document.getElementById("posbar2").style.width= "" + Math.round(100/statuslines.length) + "%";
         document.getElementById("statusline-container").style.visibility= "visible";
-    }
-
-    function loadprep() {
-        var pages= document.getElementsByClassName("page");
-        for(var i= 0; i<pages.length; i++) 
-            pages[i].style.visibility= "hidden";
-        document.getElementById("pageoverlay-div").style.visibility= "visible";
-    }
-
-    function scrollstuff() {
-        pages= document.getElementsByClassName("page");
-        var i;
-        for(i= 0; i<pages.length; i++) {
-            var abspos= cumulativeOffset(pages[i]);
-            var rc= pages[i].getBoundingClientRect();
-            scrollDestination= abspos.top;
-            if(document.body.scrollTop <= abspos.top + (rc.bottom - rc.top)/2)
-                break;
-        }
-        document.getElementById("pageoverlay").src= pages[i].src;
-        /*
-        //~ window.scroll(0, 100);
-        //~ console.log(document.body.scrollTop);
-        var pages= document.getElementsByClassName("page");
-        var rc= pages[0].getBoundingClientRect();
-        var yd= 10; //(rc.bottom - rc.top)/2;
         
-        if(document.body.scrollTop - lastScrollPos > yd) {
-            ++lastScrolledPage;
-            lastScrollPos= cumulativeOffset(pages[lastScrolledPage]).top;
-            window.scroll(0, lastScrollPos);
-        } else if(document.body.scrollTop - lastScrollPos < -yd) {
-            --lastScrolledPage;
-            lastScrollPos= cumulativeOffset(pages[lastScrolledPage]).top;
-            window.scroll(0, lastScrollPos);
+        var objs= document.getElementsByTagName("object");
+        for(var i= 0; i<objs.length; i++) { // for all SVG objects
+            if(objs[i].className.indexOf("page")==-1)
+                continue;
+            
+            // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#object (?)
+            var doc;
+            try { doc= objs[i].getSVGDocument(); }
+            catch(SVGdoc) { doc= objs[i].contentDocument; }
+            
+            svg= doc.getElementsByTagName("svg")[0];
+            var u= svg.getElementsByTagName("use");
+            for(var k= 0; k<u.length; k++) {
+                if(u[k].attributes["xlink:href"].nodeValue.startsWith("#image")) {
+                    prepSVGImage(svg, u[k]);
+                }
+            }
         }
-        */
-        
-        /*
-        pages= document.getElementsByClassName("page");
-        var scrollDestination= 0;
-        for(var i= 0; i<pages.length; i++) {
-            var abspos= cumulativeOffset(pages[i]);
-            var rc= pages[i].getBoundingClientRect();
-            scrollDestination= abspos.top;
-            if(document.body.scrollTop <= abspos.top + (rc.bottom - rc.top)/2)
-                break;
-        }
-        if(Math.abs(document.body.scrollTop - scrollDestination) > 10)
-            window.scroll(0, scrollDestination);
-        */
-    };
+    }
 </script>
 </head>
 <body id="body" onscroll="scrollstuff2()" onload="loadprep2()">  <!-- onscroll="scrollstuff()" onload="loadprep()"> -->
@@ -176,22 +154,22 @@ a {
 <noscript>
 <div style="background-color: #fbb; padding: 2em; margin: 2em; text-align: center"><h1>Bitte JavaScript aktivieren.</h2></div>
 </noscript>
-    <div class="pagediv"><img class="page" id="page01" src="page01.svg"></div>
-    <div class="pagediv"><img class="page" id="page02" src="page02.svg"></div>
-    <div class="pagediv"><img class="page" id="page03" src="page03.svg"></div>
-    <div class="pagediv"><img class="page" id="page04" src="page04.svg"></div>
-    <div class="pagediv"><img class="page" id="page05" src="page05.svg"></div>
-    <div class="pagediv"><img class="page" id="page06" src="page06.svg"></div>
-    <div class="pagediv"><img class="page" id="page07" src="page07.svg"></div>
-    <div class="pagediv"><img class="page" id="page08" src="page08.svg"></div>
-    <div class="pagediv"><img class="page" id="page09" src="page09.svg"></div>
-    <div class="pagediv"><img class="page" id="page10" src="page10.svg"></div>
-    <div class="pagediv"><img class="page" id="page11" src="page11.svg"></div>
-    <div class="pagediv"><img class="page" id="page12" src="page12.svg"></div>
-    <div class="pagediv"><img class="page" id="page13" src="page13.svg"></div>
-    
+    <!-- <div class="pagediv"><img class="page" id="page01" src="page01.svg"></div> -->
+    <div class="pagediv"><object id="page01" type="image/svg+xml" data="page01.svg" class="page"><param name="src" value="page01.svg"></object></div>
+    <div class="pagediv"><object id="page02" type="image/svg+xml" data="page02.svg" class="page"><param name="src" value="page02.svg"></object></div>
+    <div class="pagediv"><object id="page03" type="image/svg+xml" data="page03.svg" class="page"><param name="src" value="page03.svg"></object></div>
+    <div class="pagediv"><object id="page04" type="image/svg+xml" data="page04.svg" class="page"><param name="src" value="page04.svg"></object></div>
+    <div class="pagediv"><object id="page05" type="image/svg+xml" data="page05.svg" class="page"><param name="src" value="page05.svg"></object></div>
+    <div class="pagediv"><object id="page06" type="image/svg+xml" data="page06.svg" class="page"><param name="src" value="page06.svg"></object></div>
+    <div class="pagediv"><object id="page07" type="image/svg+xml" data="page07.svg" class="page"><param name="src" value="page07.svg"></object></div>
+    <div class="pagediv"><object id="page08" type="image/svg+xml" data="page08.svg" class="page"><param name="src" value="page08.svg"></object></div>
+    <div class="pagediv"><object id="page09" type="image/svg+xml" data="page09.svg" class="page"><param name="src" value="page09.svg"></object></div>
+    <div class="pagediv"><object id="page10" type="image/svg+xml" data="page10.svg" class="page"><param name="src" value="page10.svg"></object></div>
+    <div class="pagediv"><object id="page11" type="image/svg+xml" data="page11.svg" class="page"><param name="src" value="page11.svg"></object></div>
+    <div class="pagediv"><object id="page12" type="image/svg+xml" data="page12.svg" class="page"><param name="src" value="page12.svg"></object></div>
+    <div class="pagediv"><object id="page13" type="image/svg+xml" data="page13.svg" class="page"><param name="src" value="page13.svg"></object></div>
     <noscript>
-    <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
+        <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
     </noscript>
 </div>
 <div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
