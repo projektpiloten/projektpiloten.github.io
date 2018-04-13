@@ -22,6 +22,21 @@ body {
     margin-right: 0%;
     background-color: #eee;
 }
+.pageoverlay {
+    visibility: hidden;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    font-size: 16pt;
+    font-weight: bold;
+    margin: 0px; 
+    padding-top: 1em;
+    padding-bottom: 6em;
+    text-align: center;
+    background-color: rgba(0,0,0,0.75);
+}
 .statusline {
     position: fixed; 
     bottom: 0px; 
@@ -108,15 +123,15 @@ a {
         document.getElementById("posbar1").style.left= parseInt(pageIdx) * 100 / pages.length + "%";
         document.getElementById("posbar1a").style.left= (Math.sin((pageIdx-parseInt(pageIdx))*Math.PI/2)) * 100 + "%";
         document.getElementById("posbar2a").style.left= (Math.sin((textIdx-parseInt(textIdx))*Math.PI/2)) * 100 + "%";
+        document.getElementById("pageoverlay-div").style.visibility= "hidden";
     }
     
-    function prepSVGImage(svg /*parent <svg>*/, elem /*<use> element*/) {
-        elem.onclick= function() { 
-            //~ console.log("onclick", elem.parentNode);
-            
-            //~ elem.parentNode.style.width= "100%";
-            //elem.parentNode.transform= svg.createSVGMatrix();
-            //console.log(elem.parentNode.transform);
+    function prepSVGImage(obj /* parent <object> */, svg /*parent <svg>*/, use /*<use> element*/) {
+        use.onclick= function() { 
+            var imgurl= "img/" + obj.attributes["id"].value + "-" + use.attributes["xlink:href"].value.split('#')[1] + "-web.jpg"
+            document.getElementById("pageoverlay-img").src= "";
+            document.getElementById("pageoverlay-img").src= imgurl;
+            document.getElementById("pageoverlay-div").style.visibility= "visible";
         }
     }
     
@@ -142,7 +157,7 @@ a {
             var u= svg.getElementsByTagName("use");
             for(var k= 0; k<u.length; k++) {
                 if(u[k].attributes["xlink:href"].nodeValue.startsWith("#image")) {
-                    prepSVGImage(svg, u[k]);
+                    prepSVGImage(objs[i], svg, u[k]);
                 }
             }
         }
@@ -171,8 +186,8 @@ a {
         <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
     </noscript>
 </div>
-<div id="pageoverlay-div" style="visibility:hidden; position:fixed; top:0px; left:0px; width: 100%; margin-left:0px; margin-right:0px;">
-    <img id="pageoverlay" src="page02.svg" style="width:90%; margin-left:5%; margin-right:5%;">
+<div id="pageoverlay-div" class="pageoverlay" onclick="document.getElementById('pageoverlay-div').style.visibility='hidden';">
+    <img id="pageoverlay-img" src="img/page02-hq-image11.png" style="height:100%;">
 </div>
 <div class="statusline" id="statusline-container">
     <div class="posbar">
