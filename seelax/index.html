@@ -76,6 +76,9 @@ body {
     background-color:#888; 
     display:inline-block;
 }
+.img-container {
+    border: 1px solid #000;
+}
 a {
     text-decoration: None;
 }
@@ -127,6 +130,7 @@ a {
     }
     
     function prepSVGImage(obj /* parent <object> */, svg /*parent <svg>*/, use /*<use> element*/) {
+        use.parentNode.className= "img-container";
         use.onclick= function() { 
             var imgurl= "img/" + obj.attributes["id"].value + "-" + use.attributes["xlink:href"].value.split('#')[1] + "-web.jpg"
             document.getElementById("pageoverlay-img").src= "";
