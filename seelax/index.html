@@ -32,10 +32,21 @@ body {
     font-size: 16pt;
     font-weight: bold;
     margin: 0px; 
-    padding-top: 1em;
-    padding-bottom: 6em;
+    padding: 12px;
     text-align: center;
     background-color: rgba(0,0,0,0.9);
+    display: table-cell;
+}
+.vcenter-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.pageoverlay-img {
+    max-height: 100%;
+    max-width: 90%;
+    vertical-align: middle;
+    border: 1px solid #666;
 }
 .statusline {
     position: fixed; 
@@ -192,9 +203,6 @@ a {
         <div class="pagediv" style="font-size: 14pt; height: 4em;"></div>
     </noscript>
 </div>
-<div id="pageoverlay-div" class="pageoverlay" onclick="document.getElementById('pageoverlay-div').style.visibility='hidden';">
-    <img id="pageoverlay-img" src="img/page02-hq-image11.png" style="height:100%;">
-</div>
 <div class="statusline" id="statusline-container">
     <div class="posbar">
         <span id="posbar1" class="posbar-inner">
@@ -217,6 +225,10 @@ a {
             <span id="posbar2a" class="posbar-tick"></span>
         </span>
     </div>
+</div>
+<div id="pageoverlay-div" class="pageoverlay" onclick="document.getElementById('pageoverlay-div').style.visibility='hidden';">
+    <span class="vcenter-helper"></span>
+    <img class="pageoverlay-img" id="pageoverlay-img" src="img/page02-hq-image11.png">
 </div>
 </body>
 </html>
