@@ -121,6 +121,7 @@ a {
     var statuslines= [];
         
     function scrollstuff2() {
+        document.getElementById("pageoverlay-div").style.visibility= "hidden";
         if(!statuslines.length) 
             return;
         var rc= document.getElementById("body").getBoundingClientRect();
@@ -138,7 +139,6 @@ a {
         document.getElementById("posbar1").style.left= parseInt(pageIdx) * 100 / pages.length + "%";
         document.getElementById("posbar1a").style.left= (Math.sin((pageIdx-parseInt(pageIdx))*Math.PI/2)) * 100 + "%";
         document.getElementById("posbar2a").style.left= (Math.sin((textIdx-parseInt(textIdx))*Math.PI/2)) * 100 + "%";
-        document.getElementById("pageoverlay-div").style.visibility= "hidden";
     }
     
     function prepSVGImage(obj /* parent <object> */, svg /*parent <svg>*/, use /*<use> element*/) {
