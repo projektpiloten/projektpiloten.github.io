@@ -92,6 +92,12 @@ body {
 .img-container {
     border: 1px solid #000;
     text-decoration: underline;
+    cursor: pointer;
+}
+.img-obj {
+    border: 1px solid #000;
+    text-decoration: underline;
+    cursor: pointer;
 }
 a {
     text-decoration: None;
@@ -144,8 +150,7 @@ a {
     }
     
     function prepSVGImage(obj /* parent <object> */, svg /*parent <svg>*/, use /*<use> element*/) {
-        use.parentNode.className= "img-container";
-        console.log(use.parentNode.className);
+        use.parentNode.style= "cursor:pointer;";
         use.onclick= function() { 
             var imgurl= "img/" + obj.attributes["id"].value + "-" + use.attributes["xlink:href"].value.split('#')[1] + "-web.jpg"
             document.getElementById("pageoverlay-img").src= "";
